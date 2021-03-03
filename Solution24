@@ -1,0 +1,78 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
+//깊이/너비 우선 탐색(DFS/BFS) - 단어 변환
+class Solution24 {
+	class Group {
+		String word;
+		int depth;
+		
+		Group(String word, int depth) {
+			this.word = word;
+			this.depth = depth;
+		}
+	}
+	
+	public int solution(String begin, String target, String[] words) {
+		int answer = 0;
+		boolean flag = false;
+		int[] visit = new int[words.length];
+
+		for (String tmp : words) {
+			if (tmp.equals(target)) {
+				flag = true;
+				break;
+			}
+		}
+		if (!flag)
+			return 0;
+		
+		Queue<Group> list = new LinkedList<Group>();
+		list.offer(new Group(begin, answer));
+		
+		while (!list.isEmpty()) {
+			Group g = list.poll();
+			
+			if (target.equals(g.word)) {
+				answer = g.depth;
+				break;
+			}
+			
+			for (int i = 0; i < words.length; i++) {
+				int cnt = 0;
+
+				if (visit[i] == 1)
+					continue;
+
+				for (int j = 0; j < begin.length(); j++) {
+					if (g.word.charAt(j) == words[i].charAt(j)) {
+						cnt++;
+					}
+				}
+				if (cnt == begin.length()-1) {
+					list.offer(new Group(words[i], g.depth+1));
+					visit[i] = 1;
+				}
+			}
+		}
+		
+		return answer;
+	}
+
+	public static void main(String[] args) {
+		String begin = "hit";
+		String target = "cog";
+		String[] words = { 
+				"hot", "dot", "dog", "lot", "log", "cog"
+				//"hot", "dot", "dog", "lot", "log"
+				//"cog", "log", "lot", "dog", "hot"
+				//"cog", "log", "lot", "dog", "dot", "hot"
+				//"aaz", "aab", "abb", "abc"
+				//"hhh","hht"
+				//"zzz","zyz","xzz","xyz","hyt","hyz","xiz","hiz"
+		};
+
+		Solution24 s = new Solution24();
+		System.out.println(s.solution(begin, target, words));
+	}
+}
