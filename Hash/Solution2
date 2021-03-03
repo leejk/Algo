@@ -1,0 +1,22 @@
+import java.util.HashMap;
+//해시 - 전화번호 목록
+class Solution {
+    public boolean solution(String[] phone_book) {
+       boolean answer = true;
+        HashMap<String, String> map = new HashMap<String, String>();
+        
+        for(String s : phone_book) {
+        	map.put(s, s);
+        }
+        
+        for(String s : phone_book) {
+        	for(int len=0;len<s.length();len++) {	
+	        	if(map.containsKey(s.substring(0, len))) {
+	        		return false;
+	        	}
+        	}
+        }
+        
+        return answer;
+    }
+}
