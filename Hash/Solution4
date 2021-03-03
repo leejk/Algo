@@ -1,0 +1,66 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+// 해시 - 베스트앨범
+
+class Solution {
+    static int k;
+    static int SIZE=0;
+    
+    public int[] solution(String[] genres, int[] plays) {
+        int[] answer = {};
+		
+		HashMap<String, Integer> rank = new HashMap<>();
+		HashMap<String, HashMap<Integer, Integer>> m = new HashMap<>();
+		
+		//1.map에 넣기
+		for(int i=0 ;i<genres.length; i++) {
+			rank.put(genres[i], rank.getOrDefault(genres[i], 0) + plays[i]);
+			m.put(genres[i], m.getOrDefault(genres[i], new HashMap<Integer, Integer>()));
+			//m.get(genres[i]).put("total", m.get(genres[i]).getOrDefault("total", 0)+ plays[i]);
+			m.get(genres[i]).put(i, plays[i]);
+		}
+		//2.장르 정렬
+		List<String> arr = new ArrayList(rank.keySet());
+		Collections.sort(arr, new Comparator<String>() {
+			public int compare(String s1, String s2) {
+				return rank.get(s2).compareTo(rank.get(s1));
+			}
+		});
+		//3.answer 사이즈 측정
+		for(k=0 ;k<arr.size();k++) {
+			if(m.get(arr.get(k)).size() < 2) {
+				SIZE += 1;
+			} else {
+				SIZE += 2;
+			}
+		}
+		answer = new int[SIZE];
+		
+		int cnt=0;
+		//3.노래 정렬
+		for(k=0 ;k<arr.size();k++) {
+			List<Integer> ar2 = new ArrayList(m.get(arr.get(k)).keySet());
+			
+			Collections.sort(ar2, new Comparator<Integer>() {
+				public int compare(Integer s1, Integer s2) {
+					return m.get(arr.get(k)).get(s2).compareTo(m.get(arr.get(k)).get(s1));
+				}
+			});
+			
+			for(int i=0 ;i<ar2.size();i++) {
+				if(i > 1) {
+					break;
+				}
+				answer[cnt++] = ar2.get(i);
+				
+			}
+			
+		}
+		
+		return answer;
+    }
+}
