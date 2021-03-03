@@ -1,0 +1,38 @@
+// 스택/큐 - 기능개발
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        int[] answer = {};
+        Queue<Integer> q = new LinkedList<Integer>();
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        int tmp = 0;
+        
+        for(int i=0;i<progresses.length;i++) {
+        	q.offer((int)Math.ceil((double)(100 - progresses[i])/speeds[i]));
+        }
+        
+        while(!q.isEmpty()) {
+        	int cnt = 1;
+        	tmp = q.poll();
+        	
+        	while(!q.isEmpty() && tmp >= q.peek()) {
+        		q.poll();
+        		cnt++;
+        	}
+        	arr.add(cnt);
+        	
+        }
+        
+        answer = new int[arr.size()];
+        
+        for(int i =0;i<arr.size();i++) {
+        	answer[i] = arr.get(i);
+        }
+        
+        
+        return answer;
+    }
+}
