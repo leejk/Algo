@@ -1,0 +1,25 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+//해시 - 위장
+class Solution {
+    public int solution(String[][] clothes) {
+         int answer = 1;
+        HashMap<String, Integer> m = new HashMap<>();
+        
+        for(String[] s : clothes) {
+        	m.put(s[1], m.getOrDefault(s[1], 0)+1);
+        }
+        
+        /*
+         * (n+1) * (m+1) - 1
+         */
+    	Iterator<Entry<String, Integer>> it = m.entrySet().iterator();
+        while(it.hasNext()) {
+        	answer *= it.next().getValue()+1; 
+        }
+        
+        answer-=1;
+        return answer;
+    }
+}
