@@ -23,39 +23,43 @@ class Solution28 {
         int answer = 0;
         int[] visit = new int[n+1];
         
-        ArrayList<ArrayList<Node>> arr = new ArrayList<ArrayList<Node>>();
-        Queue<Integer> q = new LinkedList();
+        ArrayList<ArrayList<Integer>> arr = new ArrayList<ArrayList<Integer>>();
+        Queue<Node> q = new LinkedList();
         
         for(int i=0;i<n+1;i++) {
-        	arr.add(new ArrayList<Node>());
+        	arr.add(new ArrayList<Integer>());
         }
         
         for(int i=0;i<edge.length;i++) {
-        	arr.get(edge[i][0]).add(new Node(edge[i][1],1));
-        	arr.get(edge[i][1]).add(new Node(edge[i][0],1));
+        	arr.get(edge[i][0]).add(edge[i][1]);
+        	arr.get(edge[i][1]).add(edge[i][0]);
         }
-        
-        q.offer(1);
+        int max = 0;
+        q.offer(new Node(1,1));
         visit[1] = 1;
         
         while(!q.isEmpty()) {
-        	int tmp = q.poll();
-        	
-        	for(int i=tmp;i<arr.get(i).size();i++) {
+        	Node nd = q.poll();
+            
+            int tmp = 0;
+            //System.out.println(nd.vertex +","+nd.depth);
+            
+        	for(int i=0;i<arr.get(nd.vertex).size();i++) {
+        		int v = arr.get(nd.vertex).get(i);
         		
+        		if(visit[v] > 0)
+        			continue;
+        		q.offer(new Node(v, nd.depth+1));
+        		visit[v] = nd.depth+1;
+        		tmp = nd.depth+1;
         	}
+        	max = Math.max(max, tmp);
         }
         
-        
-        
-        /*for(int i=0;i<n+1;i++) {
-        	for(int j=0;j<arr.get(i).size();j++) {
-        		System.out.println(arr.get(i).get(j).vertex);
-        	}
-        	System.out.println();
-        }*/
-        
-        System.out.println();
+        for(int i : visit) {
+        	if(max == i)
+        		answer++;
+        }
         return answer;
     }
 
@@ -70,6 +74,3 @@ class Solution28 {
 		System.out.println(s.solution(n, edge));
 	}
 }
-
-
-
