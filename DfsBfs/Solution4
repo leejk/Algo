@@ -1,0 +1,43 @@
+// DFS/BFS - 여행경로
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+class Solution {
+    static int[] visit;
+	static ArrayList<String> arr;
+
+	public String[] solution(String[][] tickets) {
+        String[] answer = {};
+        arr = new ArrayList<String>();
+        visit = new int[tickets.length];
+
+        DFS("ICN", tickets, 0, "ICN");
+        
+        Collections.sort(arr);
+        answer = arr.get(0).split(",");
+        //System.out.println(Arrays.toString(answer));
+        return answer;
+    }
+
+	public void DFS(String from, String[][] tickets, int depth, String route) {
+
+		if(depth >= tickets.length) {
+			arr.add(route);
+			return;
+		}
+		
+		for(int i=0;i<tickets.length;i++) {
+			if(from.equals(tickets[i][0])) {
+				if(visit[i] != 0)
+					continue;
+
+				visit[i] = depth+1;
+				DFS(tickets[i][1], tickets, depth+1, route +"," + tickets[i][1]);
+				visit[i] = 0;
+			}
+		}
+
+	}
+}
