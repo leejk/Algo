@@ -1,0 +1,19 @@
+import java.util.Arrays;
+
+// DP - N으로 표현
+class Solution28 {
+	
+	public int solution(int N, int number) {
+        int answer = 0;
+        return answer;
+    }
+
+
+	public static void main(String[] args) {
+		int N = 5;
+		int number = 12;
+		
+		Solution28 s = new Solution28();
+		System.out.println(s.solution(N, number));
+	}
+}
