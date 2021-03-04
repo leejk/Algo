@@ -1,0 +1,27 @@
+import java.util.Arrays;
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+         int[] answer = new int[commands.length];
+        int[] tmp= {};
+        int i=0;
+        int j=0;
+        int k=0;
+        
+        for(int loop=0;loop<commands.length;loop++) {
+        	int cnt=0;
+        	i=commands[loop][0]-1;
+        	j=commands[loop][1]-1;
+        	k=commands[loop][2]-1;
+        	
+        	tmp = new int[j-i+1];
+        	for(;i<j+1;i++) {
+        		tmp[cnt++] = array[i];
+        	}
+        	Arrays.sort(tmp);
+        	answer[loop] = tmp[k];
+        	
+        }
+             
+        return answer;
+    }
+}
