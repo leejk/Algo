@@ -1,0 +1,30 @@
+// 정렬 - H-Index
+
+import java.util.Arrays;
+class Solution {
+    public int solution(int[] citations) {
+        int answer = 0;
+        int h = 1;
+        int tmp = 0;
+        Arrays.sort(citations);
+        
+        for(int i=0;i < citations.length;i++) {
+        	
+        	if(citations[i] >= h) {
+        		tmp = citations.length - i;
+        		if(tmp >= h && (citations.length - tmp)  <= h) {
+        			answer = h > answer ? h : answer;
+        			h++;
+        			i--;
+        		} else {
+        			h++;
+        			i--;
+        		}
+        	} else {
+        		continue;
+        	}
+        }
+        
+        return answer;
+    }
+}
