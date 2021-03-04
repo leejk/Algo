@@ -1,0 +1,38 @@
+// DFS/BFS - 네트워크
+
+import java.util.PriorityQueue;
+import java.util.Queue;
+class Solution {
+    public int solution(int n, int[][] computers) {
+        int answer = 0;
+        int[] com = new int[computers.length];
+        int node = 1;
+
+        Queue<Integer> q = new PriorityQueue<Integer>();
+        q.offer(0);
+        com[0] = 1;
+        answer++;
+        
+        for(int i=0;i<computers.length;i++) {
+        	if(com[i] == 0) {
+        		q.offer(i);
+        		com[i] = ++node;
+        		answer++;
+        	}
+        	
+        	while(!q.isEmpty()) {
+        		int tmp = q.poll();
+        		for(int j=0;j<computers.length;j++) {
+        			if(tmp==j) continue;
+        			if(computers[tmp][j] == 1 && com[j] == 0) {
+        				q.offer(j);
+        				com[j] = node;	
+        			}
+        		}
+        			
+        	}
+        }
+        
+        return answer;
+    }
+}
