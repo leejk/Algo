@@ -1,0 +1,68 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+// 그래프 - 슨위
+// 플로이드-와샬알고리즘
+// 다익스트라 알고리즘은 음의 가중치 처리가 어려움
+// 플로이드 와샬 알고리즘은 사이클이 없는 경우 음수 가중치 처리가 가능
+// 문제 못 풀었다.
+// 구글링 해보니 플로이드 마샬 알고리즘을 이용해서 푸는데
+// 알고리즘 자체는 쉬운편이나
+// 이 문제에 해당 알고리즘을 접목시켰다는게 대단한거 같다.
+class Solution29 {
+	public int solution(int n, int[][] results) {
+        
+		int answer = 0;
+        int[][] fw = new int[n+1][n+1];
+        int max = 100000;
+        
+        for(int i=1;i<n+1;i++) {
+        	for(int j=1;j<n+1;j++) {
+        		fw[i][j] = max; //Integer.MAX_VALUE; 큰수를 넣기 위해 사용하면 안됨, 오버플로로 음수가 발생
+        	}
+        }
+        
+        for(int[] tmp : results) {
+        	fw[tmp[0]][tmp[1]] = 1;
+        }
+        
+        for(int k=1;k<n+1;k++) {
+        	for(int x=1;x<n+1;x++) {
+        		for(int y=1;y<n+1;y++) {
+                	fw[x][y] = Math.min(fw[x][k] + fw[k][y], fw[x][y]);
+                }
+            }
+        }
+        
+        for(int i=1;i<n+1;i++) {
+        	boolean flag = true;
+        
+        	for(int j=1;j<n+1;j++) {
+        		if(i==j) continue;
+        		if(fw[i][j] == max && fw[j][i] == max) {
+        			flag = false;
+        			break;
+        		}
+        	}
+        	
+        	if(flag) answer++;
+        }
+        
+        return answer;
+    }
+	
+	
+
+	
+	public static void main(String[] args) {
+		int n=5;
+		int[][] results = {
+				{4, 3}, {4, 2}, {3, 2}, {1, 2}, {2, 5}	
+		};
+		
+		Solution29 s = new Solution29();
+		System.out.println(s.solution(n, results));
+	}
+}
