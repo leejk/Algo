@@ -1,0 +1,51 @@
+// 탐옥법 - 조이스틱
+/*
+문제에서 마지막 위치에서 오른쪽 이동하면 첫번째 커서로 이동할 수 있다는 조건이 없어서 무조건 한쪽으로만 이동하는 줄 알았다.
+이럴 경우 11번 케이스만  통과 못함.
+좌우로 자유롭게  이동 가능해야 한다.
+생각보다 많이 어려웠던 문제.
+인터넷에 많은 해답이 있지만 문제를 통과할진 몰라도 대부분 틀리다.
+예를 들어 'BBBAAAB' 케이스의 경우 8 혹은 9로도 통과한다.
+탐욕알고리즘이기 때문에 그런거 같다.
+난 양방향 계산을 해서 최소 cost인 걸로 처리했다.
+*/
+class Solution31 {
+	public int solution(String name) {
+        int answer = 0;
+        int min = 65;
+        int max = 90;
+        int len = name.length();
+        
+        int[] arr = new int[len];
+        
+        int left = len-1;
+        int right= len-1;
+        
+    	for(int i=0;i<len;i++) {
+        	int up = (int)name.toCharArray()[i]- min;
+        	int down = max - (int)name.toCharArray()[i]+1;
+        	answer += Math.min(up, down);
+        	
+        	int tmp = i;
+        	while(tmp < len && name.charAt(tmp) == 'A') {
+        		tmp++;
+        		left = Math.min(left, (i-1)*2+len-tmp);
+            	right = Math.min(right, (len-tmp-1)*2 + i+1);
+        	}
+        	
+        }
+        answer += Math.min(left, right);
+        return answer;
+    }
+	
+	public static void main(String[] args) {
+		//String name = "BBBAAAB"; //8 OR 9
+		//String name = "JEROEN";//56
+		//String name = "JAZ";//11
+		String name = "JAN";//23
+		
+		
+		Solution31 s = new Solution31();
+		System.out.println(s.solution(name));
+	}
+}
