@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+
+// 탐욕법 - 큰 수 만들기
+//DFS or 탐욕?
+class Solution31 {
+	
+	public String solution(String number, int k) {
+        String answer = "";
+        
+        int max = 0;
+        int pos = 0;
+        int count = k;
+        
+        for(int i=0;i<k+1;i++) {
+        	int tmp = Character.getNumericValue(number.charAt(i));
+        	if(max < tmp) {
+        		max = tmp;
+        		pos = i;
+        	}
+        }
+        
+        if(pos >= k)
+        	return number.substring(pos);
+        k--;
+        
+        System.out.println(max + ","+pos+","+k);
+        
+        for(int i=pos+1;i<number.length();i++) {
+        	for(int j=0;j<k+1;j++) {
+            	
+            }
+        }
+        
+        
+        
+        System.out.println();
+        return answer;
+    }
+	
+		
+	public static void main(String[] args) {
+		String number = "4177252841";
+		int k = 4;
+		
+		Solution31 s = new Solution31();
+		System.out.println(s.solution(number, k));
+	}
+}
+
+
+
+
+
+
+
+
