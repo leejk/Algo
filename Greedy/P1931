@@ -1,0 +1,60 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+// 탐욕알고리즘 - 회의실 배정
+public class P1931 {
+	
+	static int N, CNT;
+	static ArrayList<Conf> arr;
+	
+	static class Conf implements Comparable<Conf>{
+		int start;
+		int end;
+		
+		Conf(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+		
+		public int compareTo(Conf c) {
+			if(this.end == c.end)
+				return this.start - c.start;
+			else
+				return this.end - c.end;
+		}
+	}
+
+	
+	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("E:\\WebProject\\newworkspace\\algo\\input\\P1931.txt"));
+		
+		Scanner sc = new Scanner(System.in);
+		arr = new ArrayList();
+		N = sc.nextInt();
+		
+		for(int i=0;i<N;i++) {
+			int a = sc.nextInt();
+			int b  = sc.nextInt();
+			arr.add(new Conf(a, b));
+		}
+		Collections.sort(arr);
+		
+		int endTime = 0;
+		
+		for(Conf f : arr) {
+			
+			if(f.start >= endTime) {
+				endTime = f.end;
+				CNT++;
+				//System.out.println(f.start+","+f.end+","+endTime);
+			}
+		}
+		
+		System.out.println(CNT);
+	}
+	
+}
+
