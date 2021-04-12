@@ -1,0 +1,61 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+// 탐욕알고리즘 - 주유소
+// 생각보다 쉬운 문제 였으나 많이 헤맸다.
+// 1. 최소 cost인지 비교해 가며 계산
+// 2. 값의 데이터 타입은 long
+public class P13305 {
+	
+	static int N;
+	static long[] dis;
+	static long[] lit;
+	
+	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("E:\\WebProject\\newworkspace\\algo\\input\\P13305.txt"));
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+		dis = new long[N-1];
+		lit = new long[N];
+		
+		for(int i=0;i<N-1;i++) {
+			dis[i] = sc.nextLong();
+		}
+		for(int i=0;i<N;i++) {
+			lit[i] = sc.nextLong();
+		}
+		
+		long sum = 0;
+		long cost = Long.MAX_VALUE;
+		
+		for(int i=0;i<N-1;i++) {
+			
+			if(lit[i] < cost)
+				cost = lit[i];
+			
+			sum += cost * dis[i];
+		}
+		
+		System.out.println(sum);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
