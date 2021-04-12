@@ -5,6 +5,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 // 탐욕알고리즘 - 잃어버린 괄호
+/*
+split은 regex(정규식)과 매치되는 문자열을 찾는다.
+파이프(|), 더하기(+) 등은 정규식에서 특별한 의미를 갖는 메타문자입니다.
+그러므로 이것은 단순 문자로 해석하기 위해서는 이스케이프 처리를 해야 한다.
+이스케이프도 이스케이프 처리해야 하기 때문에 '\\' 한다.
+*/
 public class P1541 {
 	
 	static String N;
