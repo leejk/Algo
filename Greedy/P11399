@@ -1,0 +1,31 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Scanner;
+
+// 탐욕알고리즘 - ATM
+public class P11399 {
+	
+	static int N, CNT;
+	static int person[];
+	
+	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("E:\\WebProject\\newworkspace\\algo\\input\\P11399.txt"));
+		Scanner sc = new Scanner(System.in);
+		
+		N = Integer.parseInt(sc.nextLine());
+		person = new int[N+1];
+		
+		for(int i = 1;i<=N;i++) {
+			person[i] = sc.nextInt(); 
+		}
+		
+		Arrays.sort(person);
+		int tmp=0;
+		for(int i : person) {
+			tmp += i;
+			CNT += tmp;
+		}
+		System.out.println(CNT);
+	}
+}
