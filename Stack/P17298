@@ -1,0 +1,74 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import java.util.Stack;
+
+// 백준 - 오큰수
+// 특정위치의 오른쪽에 있는 큰수 중 가장 왼쪽에 있는 수
+// 없으면 -1
+// for문을 여러개 쓸 경우 무조건 타임아웃 발생한다.
+// 스택을 최대한 활용해야 하나 어떻게 적용해야 할지 어렵다.
+// 생각보다 많은 시간이 걸렸다.
+public class P17298 {
+	
+	static int N, CNT;
+	
+	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("E:\\WebProject\\newworkspace\\algo\\input\\P17298.txt"));
+		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+		Scanner sc = new Scanner(System.in);
+		
+		N = sc.nextInt(); // 1 <= N <= 1,000,000
+		int[] su = new int[N];
+		
+		for(int i=0;i<N;i++) {
+			su[i] = sc.nextInt();
+		}
+		
+		
+		Stack<Integer> st = new Stack();
+		Stack<Integer> tmpSt = new Stack();
+		
+			
+		for(int i = N-1 ; i >= 0; i--) {
+			while(!tmpSt.isEmpty()) {
+				if(su[i] >= tmpSt.peek()) {
+					tmpSt.pop();
+				} else {
+					st.push(tmpSt.peek());
+					tmpSt.push(su[i]);
+					break;
+				}
+			}
+			
+			if(tmpSt.isEmpty()) {
+				tmpSt.push(su[i]);
+				st.push(-1);
+			}
+		}
+		
+		
+		StringBuilder sb = new StringBuilder();
+		while(!st.isEmpty()) {
+			sb.append(st.pop() + " ");
+		}
+		
+		System.out.println(sb);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
